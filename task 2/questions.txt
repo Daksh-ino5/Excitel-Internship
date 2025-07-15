@@ -1,0 +1,16 @@
+1. Multi-Key VLOOKUP using Pandas
+You have two CSV files: 'employee_details.csv' and 'employee_salary.csv'. Both contain
+'Name' and 'DOB' columns. Perform a VLOOKUP using both columns as keys to fetch the
+salary for each employee in the 'employee_details' file.
+
+2. Fuzzy Matching VLOOKUP
+You have two CSV files: 'customers_a.csv' and 'customers_b.csv' with customer names.
+Match names from A to the closest name in B using fuzzy matching.
+
+3. Left Join with Missing Data Handling
+You have 'products.csv' and 'price_list.csv'. Perform a left join to bring in prices. If price is
+missing, fill with 'Not Available'.
+
+4. Reverse Lookup using Pandas
+You have 'employee_codes.csv' and a list of employee codes. Lookup employee names
+based on codes.
