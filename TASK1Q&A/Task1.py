@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-input_file = r'/daksh/pandas/testingdata.xlsx'
+input_file = r'C:\Users\Daksh\PycharmProjects\PythonProject\daksh\pandas\TASK1Q&A\testingdata.xlsx'
 sheet1 = pd.read_excel(input_file, sheet_name='Sheet1')
 sheet2 = pd.read_excel(input_file, sheet_name='Sheet2')
 
