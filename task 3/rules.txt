@@ -1,0 +1,33 @@
+. – matches any character except newline
+* – matches 0 or more of the preceding character h
++ – matches 1 or more of the preceding character
+? – matches 0 or 1 of the preceding character
+{n} – matches exactly n repetitions
+{n,} – matches n or more repetitions
+{n,m} – matches between n and m repetitions
+^ – matches the start of the string
+$ – matches the end of the string
+\A – matches the start of the string (absolute, even in multiline)
+\Z – matches the end of the string (absolute, even in multiline)
+\b – matches a word boundary
+\B – matches a non-word boundary
+[abc] – matches any one character a, b, or c
+[^abc] – matches any character except a, b, or c
+[a-z] – matches any lowercase letter
+[A-Z] – matches any uppercase letter
+[0-9] – matches any digit
+\d – matches any digit (0–9)
+\D – matches any non-digit
+\w – matches any word character (a-z, A-Z, 0–9, _)
+\W – matches any non-word character
+\s – matches any whitespace character (space, tab, newline)
+\S – matches any non-whitespace character
+| – acts as OR, matches pattern on either side
+(abc) – groups multiple characters as one unit
+(?:abc) – non-capturing group
+(?P<name>abc) – named capturing group
+re.match() – matches pattern only at the beginning of the string
+re.search() – searches for first location of the pattern in the string
+re.findall() – returns all non-overlapping matches
+re.sub() – substitutes matched pattern with a new string
+re.compile() – compiles a pattern for repeated use
