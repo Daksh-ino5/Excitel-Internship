@@ -1,0 +1,13 @@
+Final Recap of What You Achieved:
+Generated an SSH key on your Windows machine.
+
+Copied the public key to your VM’s ~/.ssh/authorized_keys.
+
+Set permissions correctly.
+
+Logged in using:
+
+bash
+Copy
+Edit
+ssh daksh@127.0.0.1 -p 2222
