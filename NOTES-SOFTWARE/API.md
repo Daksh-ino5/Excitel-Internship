@@ -17,11 +17,11 @@ These APIs are available to **anyone** — developers, businesses, or users — 
 
 These APIs are accessible only to **authorized partners** or third-party developers, often under a legal agreement or contract.
 
-**🔑 Key Features:**
+** Key Features:**
 - Not public; requires approval or partnership.
 - Used to share data with selected collaborators.
 
-**🧠 Examples:**
+** Examples:**
 - Zomato Partner API (for restaurants)
 - Uber API (for affiliate integrations)
 
