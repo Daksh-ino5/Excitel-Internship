@@ -46,3 +46,19 @@ Composite APIs combine **multiple APIs or services** into a **single call**. Use
 **Key Features:**
 - Reduces number of API calls.
 - Improves performance and efficiency.
+
+- # Client-Side APIs vs Server-Side APIs
+
+| Feature                     | Client-Side APIs                                     | Server-Side APIs                                      |
+|----------------------------|------------------------------------------------------|--------------------------------------------------------|
+| **Definition**             | APIs accessed and run in the user's browser          | APIs built and hosted on a server                     |
+| **Executed On**            | Client (browser or frontend)                         | Server (backend)                                      |
+| **Languages Used**         | Mostly JavaScript (JS APIs)                          | Node.js, Python, PHP, Java, etc.                      |
+| **Examples**               | DOM API, Fetch API, Geolocation API, Canvas API      | REST API, GraphQL API, internal business logic APIs   |
+| **Accessed By**            | JavaScript running in browser                        | Frontend apps, mobile apps, third-party systems       |
+| **Purpose**                | Interact with browser environment or call servers    | Expose data/services to clients                       |
+| **Use of JavaScript APIs** | Yes (e.g., DOM, Fetch, Storage APIs)              | ❌ No (server doesn't use JS APIs like DOM, etc.)     |
+| **Use of RESTful APIs**    | Does not define REST APIs, but **calls** them     | ✅ Yes, often implemented as REST APIs                |
+| **Data Handling**          | Consumes data from server                            | Provides/serves data to clients                       |
+| **Security Scope**         | Limited, runs in browser sandbox                     | Handles authentication, authorization, database access |
+
