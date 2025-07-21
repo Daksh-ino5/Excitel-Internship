@@ -2,7 +2,7 @@
 
 <BR>
 
-### >ENABLE SSH<BR>
+### ENABLE SSH<BR>
 ## 1. SSH AUTHENTICATION:<BR>
 
 ### STEPS:<br>
