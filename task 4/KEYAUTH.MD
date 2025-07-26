@@ -22,87 +22,102 @@
 <li>  using (sudo nano /etc/ssh/sshd_config) edit the PasswordAuthentication to NO and PublicAuthentication to YES 
 <LI>  then from the client side login to the server side using (ssh username@127.0.0.1 -p 2222)
 
-## 3. SSH + CERTIFICATE AUTHENTICATION:<BR>
+## 3. SSH + CERTIFICATE AUTHENTICATION(USING 3 SERVERS):<BR>
  ### STEPS:
-# SSH Certificate Authentication Setup Guide
+# SSH Certificate Authority Setup Guide
 
-This guide provides the complete, step-by-step process for configuring SSH certificate-based authentication.
+This guide provides all the steps to set up SSH authentication using a Certificate Authority (CA).
+
+**Roles:**
+* **CA Server (`chirag`):** Signs keys.
+* **Main Server (`voldemort`):** The server you want to log into.
+* **Client PC (`Daksh`):** The machine you are connecting from.
 
 ---
 
-### **Phase 1: On Your Windows PC (Client + CA)**
+### ## 1. Configure the CA Server (`chirag`)
 
-These steps create the necessary keys and the certificate on your local machine.
+* **Goal:** Create the master Certificate Authority keys.
 
-1.  **Create the Certificate Authority (CA) Key Pair**
-    *This creates the master key pair that will be used to sign user keys.*
+* **Commands (run on `chirag`):**
     ```bash
-    ssh-keygen -t rsa -b 4096 -f ca_key -C "My Personal CA"
-    ```
+    # Create a dedicated directory
+    mkdir ~/ssh-ca
+    cd ~/ssh-ca
 
-2.  **Create the User Key Pair**
-    *This creates the standard SSH key pair you will use to log in.*
-    ```bash
-    ssh-keygen -t rsa -b 4096 -f user_key
-    ```
-
-3.  **Create the User Certificate**
-    *This uses the CA's private key to sign your user's public key. The certificate is only valid for the specified user (`-n daksh`) and for a limited time (`-V +8h`).*
-    ```bash
-    ssh-keygen -s ca_key -I user_cert -n daksh -V +8h user_key.pub
-    ```
-
-4.  **Upload the CA Public Key to the Server**
-    *This securely copies the CA's public key to the server so the server can learn to trust it. You will be prompted for your password.*
-    ```bash
-    scp -P 2222 ca_key.pub daksh@127.0.0.1:/tmp/ca_key.pub
+    # Generate the CA's private and public keys
+    ssh-keygen -t rsa -b 4096 -f ca_key -C "SSH CA Key"
     ```
 
 ---
 
-### **Phase 2: On the Server**
+### ## 2. Configure the Main Server (`voldemort`)
 
-These steps configure the server to trust your CA and accept the certificate for login.
+* **Goal:** Tell the server to trust user keys signed by the CA.
 
-1.  **Log In to the Server**
-    *Connect to your server using your password for this one-time setup.*
-    ```bash
-    ssh -p 2222 daksh@127.0.0.1
-    ```
+* **Commands:**
 
-2.  **Move the CA Key to the SSH Directory**
-    *This moves the key from the temporary folder to its permanent location.*
-    ```bash
-    sudo mv /tmp/ca_key.pub /etc/ssh/ca_key.pub
-    ```
+    1.  **From `chirag`**, copy the CA's public key to `voldemort`:
+        ```bash
+        # Replace [IP_OF_VOLDEMORT] with the server's IP
+        scp ~/ssh-ca/ca_key.pub voldemort@[IP_OF_VOLDEMORT]:/tmp/
+        ```
 
-3.  **Configure the SSH Server**
-    *This command adds a line to the SSH server's configuration file, telling it to trust your CA.*
-    ```bash
-    echo "TrustedUserCAKeys /etc/ssh/ca_key.pub" | sudo tee -a /etc/ssh/sshd_config
-    ```
+    2.  **On `voldemort`**, move the key and configure SSH:
+        ```bash
+        # Move the key to the SSH directory
+        sudo mv /tmp/ca_key.pub /etc/ssh/
 
-4.  **Restart the SSH Service**
-    *This applies the new configuration settings.*
-    ```bash
-    sudo systemctl restart sshd
-    ```
+        # Edit the SSH config file
+        sudo nano /etc/ssh/sshd_config
+        ```
+        Add this line to the file, then save and exit:
+        ```
+        TrustedUserCAKeys /etc/ssh/ca_key.pub
+        ```
 
-5.  **Log Out of the Server**
-    *The server setup is complete.*
-    ```bash
-    exit
-    ```
+    3.  **On `voldemort`**, restart the SSH service:
+        ```bash
+        sudo systemctl restart sshd
+        ```
 
 ---
 
-### **Phase 3: Final Connection from Windows PC**
+### ## 3. Configure the Client PC (`Daksh`)
 
-This is the final step where you connect using your new certificate.
+* **Goal:** Generate a personal key, get it signed by the CA, and use it to connect.
 
-1.  **Connect Without a Password**
-    *This command uses your user key (`user_key`). The SSH client will automatically find and present the associated certificate (`user_key-cert.pub`). If successful, you will be logged in immediately without a password prompt.*
-    ```bash
-    ssh -p 2222 -i user_key daksh@127.0.0.1
+* **Commands:**
+
+    1.  **On `Daksh` (Windows PowerShell)**, create a personal SSH key pair (if you don't have one):
+        ```powershell
+        ssh-keygen -t rsa -b 4096
+        ```
+
+    2.  **On `Daksh`**, copy your public key to the CA for signing:
+        ```powershell
+        # Replace [IP_OF_CHIRAG] with the CA's IP
+        scp $HOME/.ssh/id_rsa.pub chirag@[IP_OF_CHIRAG]:~/
+        ```
+
+    3.  **On `chirag`**, sign the client's key:
+        ```bash
+        # The client key is now in chirag's home directory
+        ssh-keygen -s ~/ssh-ca/ca_key -I voldemort -n voldemort -V +52w ~/id_rsa.pub
+        ```
+        This creates the signed certificate: `~/id_rsa-cert.pub`.
+
+    4.  **On `Daksh`**, copy the new signed certificate from the CA:
+        ```powershell
+        # Replace [IP_OF_CHIRAG] with the CA's IP
+        scp chirag@[IP_OF_CHIRAG]:~/id_rsa-cert.pub $HOME/.ssh/
+        ```
+### ## 4. Final Connection
+
+* **Goal:** Log into `voldemort` from `Daksh` using the certificate.
+
+* **Command (run on `Daksh`):**
+    ```powershell
+    # Replace [IP_OF_VOLDEMORT] with the server's IP
+    ssh voldemort@[IP_OF_VOLDEMORT]
     ```
-
