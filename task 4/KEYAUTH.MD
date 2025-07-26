@@ -23,7 +23,7 @@
 <LI>  then from the client side login to the server side using (ssh username@127.0.0.1 -p 2222)
 
 ## 3. SSH + CERTIFICATE AUTHENTICATION(USING 3 SERVERS):<BR>
- ### STEPS:
+### STEPS:
 # SSH Certificate Authority Setup Guide
 
 This guide provides all the steps to set up SSH authentication using a Certificate Authority (CA).
@@ -33,12 +33,8 @@ This guide provides all the steps to set up SSH authentication using a Certifica
 * **Main Server (`voldemort`):** The server you want to log into.
 * **Client PC (`Daksh`):** The machine you are connecting from.
 
----
-
-### ## 1. Configure the CA Server (`chirag`)
-
+###  1. Configure the CA Server (`chirag`)
 * **Goal:** Create the master Certificate Authority keys.
-
 * **Commands (run on `chirag`):**
     ```bash
     # Create a dedicated directory
@@ -48,10 +44,7 @@ This guide provides all the steps to set up SSH authentication using a Certifica
     # Generate the CA's private and public keys
     ssh-keygen -t rsa -b 4096 -f ca_key -C "SSH CA Key"
     ```
-
----
-
-### ## 2. Configure the Main Server (`voldemort`)
+###  2. Configure the Main Server (`voldemort`)
 
 * **Goal:** Tell the server to trust user keys signed by the CA.
 
@@ -81,9 +74,7 @@ This guide provides all the steps to set up SSH authentication using a Certifica
         sudo systemctl restart sshd
         ```
 
----
-
-### ## 3. Configure the Client PC (`Daksh`)
+### 3. Configure the Client PC (`Daksh`)
 
 * **Goal:** Generate a personal key, get it signed by the CA, and use it to connect.
 
@@ -112,7 +103,7 @@ This guide provides all the steps to set up SSH authentication using a Certifica
         # Replace [IP_OF_CHIRAG] with the CA's IP
         scp chirag@[IP_OF_CHIRAG]:~/id_rsa-cert.pub $HOME/.ssh/
         ```
-### ## 4. Final Connection
+### 4. Final Connection
 
 * **Goal:** Log into `voldemort` from `Daksh` using the certificate.
 
