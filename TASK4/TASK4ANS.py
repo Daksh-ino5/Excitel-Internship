@@ -14,7 +14,7 @@ df[['MAC_Address', 'Shutdown_Reason']] = df['message'].apply(extract_mac_and_rea
 pivot_table = df.pivot_table(index='Shutdown_Reason', columns='MAC_Address', aggfunc='size', fill_value=0)
 pivot_table.reset_index(inplace=True)
 
-output_path = r"C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\Reason12_MAC_Report.xlsx"
+output_path = r"C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\Reason_MAC_Report.xlsx"
 pivot_table.to_excel(output_path, index=False)
 
 print(f"Excel report saved to: {output_path}")
