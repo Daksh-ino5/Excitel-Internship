@@ -1,0 +1,15 @@
+task list 
+
+10 - 4 pm Friday, Saturday, (Monday if needed) 
+1) install ubunutu server in virtual box and add key based auth so don't need to type password 
+2) system design concepts and notes
+3) finish up the notes on api 
+4) system design for a running app MakeMyTrip - https://www.youtube.com/watch?v=pnkd8mVyTNQ&list=PLMCXHnjXnTnvQVh7WsgZ8SurU1O2v_UM7&index=5 
+5) attempt using pandas and data  https://docs.google.com/spreadsheets/d/1-j76R-Lc_uAxtbfLDaSuXdXz3W4L1mMY0dfC__HpihU/edit?gid=0#gid=0 
+   extract reason and mac address and create new table and then create pivot table where reason as column names and mac of onu as rows and add count of each reason.
+
+
+4 - 7 pm
+
+1) ccna videos 
+2) learn basics of any protocol (method of transport for packet ) from anyone from noc team (to boost communication and get knowledge)

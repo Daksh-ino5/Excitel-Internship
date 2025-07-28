@@ -19,7 +19,7 @@ A device used to send and recive data between different networks and uses ip add
 <li>The packet hops through multiple routers until it reaches the destination.<br>
 
 ## TCP/IP:<br>
-###(Transmission Control Protocol/Internet Protocol)<br>
+### (Transmission Control Protocol/Internet Protocol)<br>
 it is a set of rules or protocols that defines how the data will be sent , recieved , indented etc.
 ### 4-Layer Model
 
@@ -44,6 +44,7 @@ it is a set of rules or protocols that defines how the data will be sent , recie
 <br>
 
 #  Important Networking Protocols – Quick Notes
+<br> There are a total of 65,535 possible port numbers available. These are identified by a 16-bit unsigned integer, meaning they range from 0 to 65,535. 
 
 | Protocol | Full Form                       | Purpose                                      | Port |
 |----------|----------------------------------|----------------------------------------------|------|
@@ -58,5 +59,66 @@ it is a set of rules or protocols that defines how the data will be sent , recie
 | **DHCP** | Dynamic Host Configuration Protocol | Assigns IPs to devices automatically      | 67 / 68 |
 | **TCP**  | Transmission Control Protocol    | Reliable, ordered, connection-based delivery | —    |
 | **UDP**  | User Datagram Protocol           | Fast, connectionless, no delivery guarantee  | —    |
+
+
+# Real-Life Example of OSI Layers  
+## Scenario: Sending "Hello" on WhatsApp
+
+### 7. Application Layer  
+You open WhatsApp and type "Hello". This layer is where applications like WhatsApp, Gmail, or browsers operate. It provides an interface for user interaction and decides how to send data. WhatsApp uses its own protocol over HTTP/S to communicate.
+
+### 6. Presentation Layer  
+The text "Hello" is encoded in a standard format like UTF-8 and encrypted using end-to-end encryption. This layer handles data format translation, encryption, and compression, ensuring both sender and receiver understand the data.
+
+### 5. Session Layer  
+WhatsApp sets up and maintains a communication session between you and your friend. This layer controls dialogues (sessions), managing start, duration, and end of data communication.
+
+### 4. Transport Layer  
+The message is broken into smaller chunks (segments). The transport layer assigns port numbers to help the system understand which app the data belongs to. TCP ensures the message is delivered reliably and in the correct order.
+
+### 3. Network Layer  
+Each segment is placed into a packet and assigned IP addresses of the source (your device) and destination (WhatsApp server or your friend’s device). This layer decides the best path through the network to deliver the message.
+
+### 2. Data Link Layer  
+The packet is converted into frames and given MAC addresses (hardware identifiers) of your device and the next device in the network path (like the router). It ensures error detection and delivery on the local network.
+
+### 1. Physical Layer  
+The data is converted into electrical signals, radio waves, or light pulses and physically transmitted through Wi-Fi, mobile data, or cables. This layer includes all hardware like your Wi-Fi card, Ethernet cables, and antennas.
+
+# Traditional Data Center Topology (Before)
+
+## Architecture: Three-Tier Network Model  
+This was the standard design for enterprise data centers.
+
+### 1. Core Layer (Layer 3 - Routing)  
+- Acts as the backbone of the network.  
+- Connects multiple distribution switches.  
+- Handles high-speed Layer 3 routing across the data center.
+
+### 2. Distribution Layer (Layer 2/3 - Aggregation)  
+- Aggregates traffic from access layer switches.  
+- Performs Layer 2 switching or Layer 3 routing.  
+- Applies policies like filtering and access control.
+
+# Modern Data Center Topology: Leaf-Spine Architecture
+
+## Architecture: Two-Tier Model  
+A flat, scalable, and high-performance design used in cloud-scale data centers.
+
+### 1. Spine Switches (Layer 3 - Core)  
+- High-speed, non-blocking switches.  
+- Every leaf switch connects to all spine switches.  
+- Handles fast Layer 3 forwarding.
+
+### 2. Leaf Switches (Layer 2/3 - Access)  
+- Connect to servers, storage, and firewalls.  
+- Also connect upward to all spine switches.  
+- Can perform Layer 2 switching or Layer 3 routing.
+
+
+### 3. Access Layer (Layer 2 - Switching)  
+- Connects end devices like servers and computers.  
+- Uses Layer 2 switching, VLANs, and STP.  
+- Sometimes supports Layer 3 for advanced setups.
 
 
