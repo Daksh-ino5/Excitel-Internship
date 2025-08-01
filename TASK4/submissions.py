@@ -1,6 +1,6 @@
 import pandas as pd
 
-#1
+'''#1
 s=pd.Series([10,20,30])
 print(s)
 
@@ -160,17 +160,26 @@ df=pd.read_json(json_str)
 print(df)
 
 #36
-
+'''
 #37
 
+df2 = pd.DataFrame({'A': [10, 20,30,40,50,55 ,60,70,80,90, 98]})
+df2['B'] = pd.cut(df2['A'], bins=4, labels=["Bin1", "Bin2", "Bin3", "Bin4"])
+print(df2)
+
+
 #38
+# Quantile-based binning into 3 categories (equal number of items per bin)
+df = pd.DataFrame({'A': [10, 20,30,40,50, 55 ,60,70,80,90,98]})
+df['A_qcut'] = pd.qcut(df['A'], q=4, labels=["Bin1", "Bin2", "Bin3", "Bin4"])
+print(df)
 
-
-#39
+'''#39
 grouped = df.groupby('C').agg({'A': 'sum', 'B': 'mean'})
 print(grouped)
 
 #40
 pivot_df= pd.pivot_table(df, index='C', values=['A', 'B'], aggfunc={'A': 'sum', 'B': 'mean'})
 print(pivot_df)
+'''
 

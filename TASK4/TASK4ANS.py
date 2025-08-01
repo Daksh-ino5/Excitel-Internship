@@ -1,19 +1,25 @@
-import pandas as pd
 import re
+import pandas as pd
 
-file_path = r"C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\Daksh.xlsx"
-df = pd.read_excel(file_path)
+file_path=r'C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\Daksh.xlsx'
+df=pd.read_excel(file_path)
 
-def extract_mac_and_reason(message):
-    mac = re.search(r'[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}', message).group()
-    reason = re.search(r'auditd\[0\]: (.*?) PON', message).group(1)
-    return pd.Series([mac, reason])
+def extractMACANDREASON(message):
 
-df[['MAC_Address', 'Shutdown_Reason']] = df['message'].apply(extract_mac_and_reason)
+ mac_match=re.search(r'[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}:[0-9A-Fa-f]{2}',message)
+ mac=mac_match.group() if mac_match else None
 
-pivot_table = df.pivot_table(index='Shutdown_Reason', columns='MAC_Address', aggfunc='size', fill_value=0)
+ reason_match=re.search(r'auditd\[0\]: (.*?)PON',message)
+ reason=reason_match.group(1) if reason_match else "Unkown"
+
+ return pd.Series([reason,mac])
+
+df[["Shutdown_reason","MAC_Address"]]=df["message"].apply(extractMACANDREASON)
+
+pivot_table=df.pivot_table(index="MAC_Address",columns="Shutdown_reason",aggfunc='size',fill_value=None)
 pivot_table.reset_index(inplace=True)
 
-output_path = r"C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\Reason_MAC_Report.xlsx"
-pivot_table.to_excel(output_path, index=False)
+Output_path=r'C:\Users\Daksh\PycharmProjects\PythonProject\Backup\TASK4\correct.xlsx'
+pivot_table.to_excel(Output_path,index=False)
+
 

@@ -1,5 +1,5 @@
 import re
-
-text = "Device: 00:1A:2B:3C:4D:5E"
-macs = re.findall(r"(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}", text)
-print(macs)
+string1 = '''Hello my phone number is dakshnaithani2004@gmail.com'''
+patt = re.compile(r'[a-zA-Z.+-_]+@[a-zA-Z]+\.[A-Za-z]{2,}')
+matches = patt.findall(string1)
+print(matches)

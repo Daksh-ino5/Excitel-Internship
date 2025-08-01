@@ -1,0 +1,22 @@
+{
+  "full_name": "Daksh Naithani",
+  "current_education": {
+    "degree": "B.Tech in Computer Science",
+    "institution": "ABC Institute of Technology",
+    "year_of_study": "2022 - 2026"
+  },
+  "previous_education": {
+    "12th": {
+      "school": "DAV School",
+      "board": "CBSE",
+      "year": 2022,
+      "percentage": "89%"
+    },
+    "10th": {
+      "school": "DAV School",
+      "board": "CBSE",
+      "year": 2020,
+      "percentage": "91%"
+    }
+  }
+}
